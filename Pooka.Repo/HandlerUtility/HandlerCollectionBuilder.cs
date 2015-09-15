@@ -5,7 +5,7 @@ namespace Pooka.Repo.HandlerUtility
     using System;
     using System.Collections.Generic;
 
-    public class HandlerCollection
+    public class HandlerCollectionBuilder
     {
         private readonly string _handlerAssemblyName;
 
@@ -17,13 +17,11 @@ namespace Pooka.Repo.HandlerUtility
 
         private bool _handlersRead;
 
-        public HandlerCollection(string handlerAssemblyName, string handlersNamespace, Func<Type, Type> keyFromHandlerFn)
+        public HandlerCollectionBuilder(string handlerAssemblyName, string handlersNamespace, Func<Type, Type> keyFromHandlerFn)
         {
-            Param.CheckNotNull(handlerAssemblyName, nameof(handlerAssemblyName));
-            Param.CheckNotNull(handlersNamespace, nameof(handlersNamespace));
+            Param.CheckStringNotNullOrEmpty(handlerAssemblyName, nameof(handlerAssemblyName));
+            Param.CheckStringNotNullOrEmpty(handlersNamespace, nameof(handlersNamespace));
             Param.CheckNotNull(keyFromHandlerFn, nameof(keyFromHandlerFn));
-            Param.CheckValue(handlerAssemblyName, string.IsNullOrEmpty, $"{nameof(HandlerAssemblyName)} cannote be empty");
-            Param.CheckValue(handlersNamespace, string.IsNullOrEmpty, $"{nameof(HandlerAssemblyName)} cannote be empty");
 
             _handlerAssemblyName = handlerAssemblyName;
             _handlersNamespace = handlersNamespace;

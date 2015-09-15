@@ -7,8 +7,8 @@
   "licenseUrl": "https://raw.githubusercontent.com/icosa/Pooka.Repo/adfc0735fbf960b58f3ec21d313d4230868db94e/LICENSE",
 
   "dependencies": {
-    "Pooka.Repo": "1.0.0-*",
-    "EntityFramework": "6.1.3"
+    "EntityFramework": "6.1.3",
+    "Pooka.Repo": "1.1.0"
   },
 
   "frameworks": {

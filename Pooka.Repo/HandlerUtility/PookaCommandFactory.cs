@@ -1,26 +1,24 @@
-﻿namespace Pooka.Repo
+﻿namespace Pooka.Repo.HandlerUtility
 {
     using System;
-
     using Contracts;
     using Contracts.Commands;
     using Contracts.HandlerFactories;
-    using HandlerUtility;
 
-    public class DbCommandFactory : ICommandHandlerFactory
+    internal class PookaCommandFactory : ICommandHandlerFactory
     {
-        private readonly HandlerCollection _handlerCollection;
+        private readonly HandlerCollectionBuilder _handlerCollectionBuilder;
 
-        public DbCommandFactory(HandlerCollection handlerCollection)
+        public PookaCommandFactory(HandlerCollectionBuilder handlerCollectionBuilder)
         {
-            if (handlerCollection == null) throw new ArgumentNullException(nameof(handlerCollection));
+            if (handlerCollectionBuilder == null) throw new ArgumentNullException(nameof(handlerCollectionBuilder));
 
-            _handlerCollection = handlerCollection;
+            _handlerCollectionBuilder = handlerCollectionBuilder;
         }
 
         public ICommandHandler<T> GetHandler<T>(IRepository repository)
         {
-            var commandHandlerType = _handlerCollection.TryGetHandlerType(typeof(T));
+            var commandHandlerType = _handlerCollectionBuilder.TryGetHandlerType(typeof(T));
             if (null == commandHandlerType)
             {
                 throw new InvalidOperationException("Command handler not registered!");

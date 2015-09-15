@@ -1,23 +1,27 @@
 ﻿namespace Pooka.Repo
 {
     using System;
-    using System.Linq;
-
     using Contracts.Commands;
     using Contracts.Queries;
     using HandlerUtility;
+    using System.Linq;
+    using Contracts;
 
-    public class DbQueryCommandHandlers
+    public class Pooka
     {
-        public DbQueryCommandHandlers(string handlerAssemblyName, string commandNamespace, string queryNamespace)
+        static public IPookaHandlers BuildHandlerCollectionFromAssembly(string assemblyName, string commandNamespace, string queryNamespace)
         {
-            CommandHandles = new HandlerCollection(handlerAssemblyName, commandNamespace, GetKeyFromCommandHandlerType);
-            QueryHandlers = new HandlerCollection(handlerAssemblyName, queryNamespace, GetKeyFromQueryHandlerType);
+            var commandHandlers = new HandlerCollectionBuilder(assemblyName, commandNamespace, GetKeyFromCommandHandlerType);
+            var queryHandlers = new HandlerCollectionBuilder(assemblyName, queryNamespace, GetKeyFromQueryHandlerType);
+            return new PookaHandlers(commandHandlers, queryHandlers);
         }
 
-        public HandlerCollection CommandHandles { get; }
-
-        public HandlerCollection QueryHandlers { get; }
+        static public IDomain CreateDomain(IRepository dataContext, IPookaHandlers handlers)
+        {
+            var dbCommandFactory = new PookaCommandFactory(handlers.CommandHandlers);
+            var dbQueryFactory = new PookaQueryFactory(handlers.QueryHandlers);
+            return new Domain(dataContext, dbCommandFactory, dbQueryFactory);
+        }
 
         private static bool MatchsQueryTypeInterface(Type interfaceType)
         {

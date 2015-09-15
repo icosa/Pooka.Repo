@@ -7,7 +7,7 @@
     using Contracts.HandlerFactories;
     using Contracts.Queries;
 
-    public class Domain : IDomain
+    internal class Domain : IDomain
     {
         private readonly IRepository _repository;
 

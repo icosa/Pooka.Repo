@@ -1,20 +1,18 @@
-namespace Pooka.Repo
+namespace Pooka.Repo.HandlerUtility
 {
     using System;
-
     using Contracts.HandlerFactories;
     using Contracts.Queries;
-    using HandlerUtility;
 
-    public class DbQueryFactory : IQueryHandlerFactory
+    public class PookaQueryFactory : IQueryHandlerFactory
     {
-        private readonly HandlerCollection _handlerCollection;
+        private readonly HandlerCollectionBuilder _handlerCollectionBuilder;
 
-        public DbQueryFactory(HandlerCollection handlerCollection)
+        public PookaQueryFactory(HandlerCollectionBuilder handlerCollectionBuilder)
         {
-            if (handlerCollection == null) throw new ArgumentNullException(nameof(handlerCollection));
+            if (handlerCollectionBuilder == null) throw new ArgumentNullException(nameof(handlerCollectionBuilder));
 
-            _handlerCollection = handlerCollection;
+            _handlerCollectionBuilder = handlerCollectionBuilder;
         }
 
         public IEntityQuery<T> GetHandler<T>(QueryParameters<T> queryParameters) where T : class
@@ -33,7 +31,7 @@ namespace Pooka.Repo
         {
             if (queryParameters == null) throw new ArgumentNullException(nameof(queryParameters));
 
-            var queryHandlerType = _handlerCollection.TryGetHandlerType(queryParameters.GetType());
+            var queryHandlerType = _handlerCollectionBuilder.TryGetHandlerType(queryParameters.GetType());
             if (null == queryHandlerType)
             {
                 throw new InvalidOperationException("Query handler not registered!");
