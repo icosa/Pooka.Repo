@@ -1,10 +1,10 @@
-﻿namespace Pooka.Repo.HandlerUtility
+﻿using Pooka.Repo.Utility;
+
+namespace Pooka.Repo.HandlerUtility
 {
     using System;
     using System.Linq;
     using System.Reflection;
-
-    using EnsureThat;
 
     public class HandlerReader
     {
@@ -16,9 +16,9 @@
 
         public HandlerReader(Func<Type, Type> keyFromHandlerFn, string handlerAssemblyName, string handlersNamespace)
         {
-            Ensure.That(keyFromHandlerFn).IsNotNull();
-            Ensure.That(handlerAssemblyName).IsNotNullOrEmpty();
-            Ensure.That(handlersNamespace).IsNotNullOrEmpty();
+            Param.CheckNotNull(keyFromHandlerFn, nameof(keyFromHandlerFn));
+            Param.CheckStringNotNullOrEmpty(handlerAssemblyName, nameof(handlerAssemblyName));
+            Param.CheckStringNotNullOrEmpty(handlersNamespace, nameof(handlersNamespace));
 
             _keyFromHandlerFn = keyFromHandlerFn;
             _handlerAssemblyName = handlerAssemblyName;
@@ -27,7 +27,7 @@
 
         public void ReadHandlers(Action<Type, Type> handlerPairFound)
         {
-            Ensure.That(handlerPairFound).IsNotNull();
+            Param.CheckNotNull(handlerPairFound, nameof(handlerPairFound));
 
             var assembly = GetAssemblyByName(_handlerAssemblyName);
             if (null == assembly)

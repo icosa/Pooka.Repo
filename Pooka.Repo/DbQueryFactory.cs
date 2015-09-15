@@ -2,8 +2,6 @@ namespace Pooka.Repo
 {
     using System;
 
-    using EnsureThat;
-
     using Contracts.HandlerFactories;
     using Contracts.Queries;
     using HandlerUtility;
@@ -14,7 +12,7 @@ namespace Pooka.Repo
 
         public DbQueryFactory(HandlerCollection handlerCollection)
         {
-            Ensure.That(handlerCollection).IsNotNull();
+            if (handlerCollection == null) throw new ArgumentNullException(nameof(handlerCollection));
 
             _handlerCollection = handlerCollection;
         }
@@ -33,7 +31,7 @@ namespace Pooka.Repo
 
         private Type GetHandlerFromCollection<T>(QueryParameters<T> queryParameters) where T : class
         {
-            Ensure.That(queryParameters).IsNotNull();
+            if (queryParameters == null) throw new ArgumentNullException(nameof(queryParameters));
 
             var queryHandlerType = _handlerCollection.TryGetHandlerType(queryParameters.GetType());
             if (null == queryHandlerType)

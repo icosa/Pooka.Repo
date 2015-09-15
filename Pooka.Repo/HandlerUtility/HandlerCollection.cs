@@ -1,8 +1,9 @@
+using Pooka.Repo.Utility;
+
 namespace Pooka.Repo.HandlerUtility
 {
     using System;
     using System.Collections.Generic;
-    using EnsureThat;
 
     public class HandlerCollection
     {
@@ -18,9 +19,11 @@ namespace Pooka.Repo.HandlerUtility
 
         public HandlerCollection(string handlerAssemblyName, string handlersNamespace, Func<Type, Type> keyFromHandlerFn)
         {
-            Ensure.That(handlerAssemblyName).IsNotNullOrEmpty();
-            Ensure.That(handlersNamespace).IsNotNullOrEmpty();
-            Ensure.That(keyFromHandlerFn).IsNotNull();
+            Param.CheckNotNull(handlerAssemblyName, nameof(handlerAssemblyName));
+            Param.CheckNotNull(handlersNamespace, nameof(handlersNamespace));
+            Param.CheckNotNull(keyFromHandlerFn, nameof(keyFromHandlerFn));
+            Param.CheckValue(handlerAssemblyName, string.IsNullOrEmpty, $"{nameof(HandlerAssemblyName)} cannote be empty");
+            Param.CheckValue(handlersNamespace, string.IsNullOrEmpty, $"{nameof(HandlerAssemblyName)} cannote be empty");
 
             _handlerAssemblyName = handlerAssemblyName;
             _handlersNamespace = handlersNamespace;

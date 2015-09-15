@@ -2,8 +2,6 @@
 {
     using System;
 
-    using EnsureThat;
-
     using Contracts;
     using Contracts.Commands;
     using Contracts.HandlerFactories;
@@ -15,7 +13,7 @@
 
         public DbCommandFactory(HandlerCollection handlerCollection)
         {
-            Ensure.That(handlerCollection).IsNotNull();
+            if (handlerCollection == null) throw new ArgumentNullException(nameof(handlerCollection));
 
             _handlerCollection = handlerCollection;
         }
