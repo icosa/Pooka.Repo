@@ -1,8 +1,10 @@
-﻿namespace Pooka.Repo
+﻿namespace Pook.Repo.EF
 {
     using System.Data.Entity;
 
-    using Contracts.Queries;
+    using Pooka.Repo.Contracts.Queries;
+    using Pooka.Repo.EF;
+
 
     public class QueryContext : IQueryContext
     {

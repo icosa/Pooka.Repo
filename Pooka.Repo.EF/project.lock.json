@@ -3,6 +3,19 @@
   "version": -9996,
   "targets": {
     ".NETFramework,Version=v4.0": {
+      "EntityFramework/6.1.3": {
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net40/EntityFramework.dll": {},
+          "lib/net40/EntityFramework.SqlServer.dll": {}
+        },
+        "runtime": {
+          "lib/net40/EntityFramework.dll": {},
+          "lib/net40/EntityFramework.SqlServer.dll": {}
+        }
+      },
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "1.0.14"
@@ -38,9 +51,50 @@
       },
       "Microsoft.Bcl.Build/1.0.14": {}
     },
-    ".NETFramework,Version=v4.5": {}
+    ".NETFramework,Version=v4.5": {
+      "EntityFramework/6.1.3": {
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ],
+        "compile": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.dll": {},
+          "lib/net45/EntityFramework.SqlServer.dll": {}
+        }
+      }
+    }
   },
   "libraries": {
+    "EntityFramework/6.1.3": {
+      "serviceable": true,
+      "sha512": "2xzFHAF3VVdmTR3//MygtQpwfbDjeaq+nQwCcokLzen7MKHOojPaxNPQPa4diHY1QtcR7zlHAJHNRqPB7W2Syw==",
+      "files": [
+        "EntityFramework.6.1.3.nupkg",
+        "EntityFramework.6.1.3.nupkg.sha512",
+        "EntityFramework.nuspec",
+        "content/App.config.transform",
+        "content/Web.config.transform",
+        "lib/net40/EntityFramework.dll",
+        "lib/net40/EntityFramework.SqlServer.dll",
+        "lib/net40/EntityFramework.SqlServer.xml",
+        "lib/net40/EntityFramework.xml",
+        "lib/net45/EntityFramework.dll",
+        "lib/net45/EntityFramework.SqlServer.dll",
+        "lib/net45/EntityFramework.SqlServer.xml",
+        "lib/net45/EntityFramework.xml",
+        "tools/about_EntityFramework.help.txt",
+        "tools/EntityFramework.PowerShell.dll",
+        "tools/EntityFramework.PowerShell.Utility.dll",
+        "tools/EntityFramework.psd1",
+        "tools/EntityFramework.psm1",
+        "tools/init.ps1",
+        "tools/install.ps1",
+        "tools/migrate.exe"
+      ]
+    },
     "Microsoft.Bcl/1.1.8": {
       "sha512": "gM+PUzd8ONxJpcPJeNppCJPklDhDuPUMVQkxvK4fe0rd9WyqBNPh4+UFx3Uv8zuG4C1Gapu1c25sfotE7TQtig==",
       "files": [
@@ -211,13 +265,11 @@
     }
   },
   "projectFileDependencyGroups": {
-    "": [],
-    ".NETFramework,Version=v4.0": [
-      "Microsoft.Bcl.Async >= 1.0.168"
+    "": [
+      "Pooka.Repo >= 1.0.0-*",
+      "EntityFramework >= 6.1.3"
     ],
-    ".NETFramework,Version=v4.5": [
-      "fx/System.Runtime ",
-      "fx/System.Linq.Expressions "
-    ]
+    ".NETFramework,Version=v4.0": [],
+    ".NETFramework,Version=v4.5": []
   }
 }

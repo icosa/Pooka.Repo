@@ -1,4 +1,4 @@
-﻿namespace Pooka.Repo
+﻿namespace Pooka.Repo.EF
 {
     using System;
     using System.Collections;
@@ -42,7 +42,7 @@
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return _dbQuery.GetEnumerator();
         }
 
 #if old_code_can_be_deleted
