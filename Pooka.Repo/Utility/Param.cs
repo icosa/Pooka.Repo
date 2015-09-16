@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class Param
+    public class Param
     {
         public static void CheckNotNull<T>(T value, string paramName)
         {

@@ -1,5 +1,5 @@
 {
-    "version": "1.1.0-*",
+    "version": "1.2.7-*",
     "description": "Pooka.Repo A simple CQRS repository",
     "authors": [ "Joseph Thomas King" ],
     "tags": [ "cqrs entityframework repository unitofwork" ],

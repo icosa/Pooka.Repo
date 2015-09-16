@@ -9,7 +9,9 @@
 
     internal class Domain : IDomain
     {
-        private readonly IRepository _repository;
+        private readonly Lazy<IRepository> _repository;
+
+        private readonly string _connectionString;
 
         private readonly ICommandHandlerFactory _commandHandlerFactory;
 
@@ -18,18 +20,20 @@
         private bool _repositoryDisposed;
 
         public Domain(
-            IRepository dataContext,
+            string connectionString,
+            Func<IRepository> repositoryFactory,
             ICommandHandlerFactory commandHandlerFactory,
             IQueryHandlerFactory queryHandlerFactory)
         {
-            _repository = dataContext;
+            _repository = new Lazy<IRepository>(repositoryFactory);
+            _connectionString = connectionString;
             _commandHandlerFactory = commandHandlerFactory;
             _queryHandlerFactory = queryHandlerFactory;
         }
 
         public async Task<T> FindByIdAsync<T>(int id) where T : class
         {
-            return await _repository.FindByIdAsync<T>(id);            
+            return await GetRepository().FindByIdAsync<T>(id);            
         }
 
         public async Task<T> FindSingleAsync<T>(QueryParameters<T> queryParameters) where T : class
@@ -40,7 +44,7 @@
                 throw new SystemException("No command handler found for " + queryParameters.GetType());
             }
 
-            return await _repository.FindAsync(queryHandler);
+            return await GetRepository().FindAsync(queryHandler);
         }
 
         public async Task<T[]> FindAsync<T>(QueryParameters<T> queryParameters) where T : class
@@ -51,17 +55,17 @@
                 throw new SystemException("No command handler found for " + queryParameters.GetType());
             }
 
-            return await _repository.FindAsync(queryHandler);
+            return await GetRepository().FindAsync(queryHandler);
         }
 
         public async Task<T[]> GetAllAsync<T>() where T : class
         {
-            return await _repository.GetAllAsync<T>();
+            return await GetRepository().GetAllAsync<T>();
         }
 
         public Task ExecuteAsync<T>(T command)
         {
-            var handler = _commandHandlerFactory.GetHandler<T>(_repository);
+            var handler = _commandHandlerFactory.GetHandler<T>(GetRepository, _connectionString);
             if (handler == null)
             {
                 throw new SystemException("No command handler found for " + typeof(T));
@@ -79,6 +83,11 @@
 
                 _repositoryDisposed = true;
             }
+        }
+
+        private IRepository GetRepository()
+        {
+            return _repository.Value;
         }
     }
 }

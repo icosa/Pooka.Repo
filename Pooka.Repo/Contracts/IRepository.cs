@@ -18,6 +18,8 @@
 
         Task RemoveAsync<T>(T item, bool commit = false) where T : class;
 
+        void AttachExisting<T>(T entity) where T : class;
+
         Task<int> SaveChangesAsync();
     }
 }

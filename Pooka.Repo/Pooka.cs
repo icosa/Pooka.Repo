@@ -16,11 +16,11 @@
             return new PookaHandlers(commandHandlers, queryHandlers);
         }
 
-        static public IDomain CreateDomain(IRepository dataContext, IPookaHandlers handlers)
+        static public IDomain CreateDomain(string connectionString, Func<IRepository> repositoryFactory, IPookaHandlers handlers)
         {
             var dbCommandFactory = new PookaCommandFactory(handlers.CommandHandlers);
             var dbQueryFactory = new PookaQueryFactory(handlers.QueryHandlers);
-            return new Domain(dataContext, dbCommandFactory, dbQueryFactory);
+            return new Domain(connectionString, repositoryFactory, dbCommandFactory, dbQueryFactory);
         }
 
         private static bool MatchsQueryTypeInterface(Type interfaceType)
