@@ -1,27 +1,29 @@
 {
-    "version": "1.2.7-*",
-    "description": "Pooka.Repo A simple CQRS repository",
-    "authors": [ "Joseph Thomas King" ],
-    "tags": [ "cqrs entityframework repository unitofwork" ],
-    "projectUrl": "https://github.com/icosa/Pooka.Repo",
-    "licenseUrl": "https://raw.githubusercontent.com/icosa/Pooka.Repo/adfc0735fbf960b58f3ec21d313d4230868db94e/LICENSE",
+  "version": "1.2.9-*",
+  "description": "Pooka.Repo A simple CQRS repository",
+  "authors": [ "Joseph Thomas King" ],
+  "tags": [ "cqrs entityframework repository unitofwork" ],
+  "projectUrl": "https://github.com/icosa/Pooka.Repo",
+  "licenseUrl": "https://raw.githubusercontent.com/icosa/Pooka.Repo/adfc0735fbf960b58f3ec21d313d4230868db94e/LICENSE",
 
-    "dependencies": {
+  "dependencies": {
+  },
+
+  "frameworks": {
+    "net45": {
+      "frameworkAssemblies": {
+        "System.Runtime": "",
+        "System.Linq.Expressions": ""
+      },
+      "dependencies": {
+      }
     },
-
-    "frameworks": {
-        "net4": {
-            "dependencies": {
-                "Microsoft.Bcl.Async": "1.0.168"
-            }
-        },
-        "net45": {
-            "frameworkAssemblies": {
-                "System.Runtime": "",
-                "System.Linq.Expressions": ""
-            },
-            "dependencies": {
-            }
-        }
+    "net452": {
+      "frameworkAssemblies": {
+      },
+      "dependencies": {
+        "System.Runtime": "4.0.10.0"
+      }
     }
+  }
 }
